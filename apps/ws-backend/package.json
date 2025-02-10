@@ -9,9 +9,20 @@
     "dev": "nodemon --ext ts --exec ts-node src/index.ts"
   },
   "dependencies": {
-    "@repo/typescript-config": "workspace:*"
+    "@repo/typescript-config": "workspace:*",
+    "@types/jsonwebtoken": "^9.0.8",
+    "@repo/db": "workspace:*",
+    "@types/ws": "^8.5.14",
+    "jsonwebtoken": "^9.0.2",
+    "ws": "^8.18.0"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "@repo/backend-common": "workspace:*",
+    "@repo/common": "workspace:*",
+    "nodemon": "^3.1.9",
+    "ts-node": "^10.9.2"
+  }
 }

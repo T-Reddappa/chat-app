@@ -10,12 +10,17 @@
   },
   "dependencies": {
     "@repo/typescript-config": "workspace:*",
-    "express": "^4.21.2"
+    "@types/jsonwebtoken": "^9.0.8",
+    "@repo/db": "workspace:*",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@repo/backend-common": "workspace:*",
+    "@repo/common": "workspace:*",
     "@types/express": "^5.0.0",
     "nodemon": "^3.1.9",
     "ts-node": "^10.9.2"
