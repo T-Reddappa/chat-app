@@ -1,5 +1,11 @@
 import { NextFunction, Request, Response } from "express";
-import jwt from "jsonwebtoken";
+
+declare module "express-serve-static-core" {
+  interface Request {
+    userId?: string;
+  }
+}
+import jwt, { JwtPayload } from "jsonwebtoken";
 import { JWT_SECRET } from "@repo/backend-common/utils";
 
 export const authMiddleware = (
@@ -7,11 +13,22 @@ export const authMiddleware = (
   res: Response,
   next: NextFunction
 ) => {
-  const token = req.headers["authorization"] || "";
-  const decoded = jwt.verify(token, JWT_SECRET);
+  const authHeader = req.headers["authorization"];
+  if (!authHeader || !authHeader.startsWith("Bearer ")) {
+    res.status(403).json({ message: "Unauthorized: No token provided" });
+    return;
+  }
 
-  if (decoded) {
-  } else {
-    res.status(403).json({ message: "unauthorized" });
+  const token = authHeader.split(" ")[1];
+  if (!token) {
+    res.status(403).json({ message: "Unauthorized: No token provided" });
+    return;
+  }
+  try {
+    const decoded = jwt.verify(token, JWT_SECRET) as JwtPayload;
+    req.userId = decoded.userId;
+    next();
+  } catch (e) {
+    res.status(403).json({ message: "Unauthorized: Invalid token" });
   }
 };
